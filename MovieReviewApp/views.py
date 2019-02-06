@@ -11,10 +11,14 @@ from MovieReviewApp.key import apikey
 #   data = response.json()
 #   return render(request, 'MovieReviewApp/home.html', {'data': data})
 def home_view(request):
-  tmdb.API_KEY ='key lelena mere paas se'
-  movie = tmdb.Movies(603)
-  print(movie)
-  response=movie.info()
+  tmdb.API_KEY ='784b4dff6c62ccbe711abb6b8163979f'
+  search = tmdb.Search()
+  id = search.movie(query='Dangal')['results'][0]['id']
+  print(id)
+  movie = tmdb.Movies(id)
+  print(movie.info())
+  #print(movie.reviews())
   response1=movie.reviews()
-  print(response1)
-  return render(request, 'MovieReviewApp/home.html', {'data': response1})
+  data = response1['results'][0]['content']
+  print(data)
+  return render(request, 'MovieReviewApp/home.html', {'data': 1})
