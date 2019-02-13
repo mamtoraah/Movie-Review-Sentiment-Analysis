@@ -36,7 +36,8 @@ def home_view(request):
     cleanedreviews.append(cleanedstr)
     #print("Start is",startindex)
   print("Cleaned Reviews",cleanedreviews)
-  return render(request, 'MovieReviewApp/home.html', {'data': data})
+  values={'Sentiment Rating from TMDB API':8.5,'Sentiment Rating from Web Scraper':7.5,'Actual Rating':6.2,'Proposed Rating':6.8}
+  return render(request, 'MovieReviewApp/home.html', {'data': values})
 
 #def home_view(request):
 #  tmdb.API_KEY ='784b4dff6c62ccbe711abb6b8163979f'
