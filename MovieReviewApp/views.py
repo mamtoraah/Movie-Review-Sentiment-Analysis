@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 # Create your views here.
 def home_view(request):
   key = apikey
-  movie_str = '&s=Deadpool'
+  movie_str = '&s=Dil Dhadakne Do'
   url = 'http://www.omdbapi.com/?apikey=' + apikey + movie_str
   response = requests.get(url)
   data = response.json()
@@ -23,9 +23,19 @@ def home_view(request):
   #print(soup.prettify())
   dtags = soup.find_all("div", { "class" : "text show-more__control" })
   #print("d tags are",dtags)
+
+  listofreviews=[]
+  cleanedreviews=[]
   for d in dtags:
-    print(d)
-    break
+    listofreviews.append(d.text.strip())
+
+  #print(listofreviews)
+  for str in listofreviews:
+    startindex=str.find('Favorite films:')
+    cleanedstr=str[0:startindex]
+    cleanedreviews.append(cleanedstr)
+    #print("Start is",startindex)
+  print("Cleaned Reviews",cleanedreviews)
   return render(request, 'MovieReviewApp/home.html', {'data': data})
 
 #def home_view(request):
