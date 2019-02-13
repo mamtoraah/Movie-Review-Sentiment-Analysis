@@ -62,7 +62,6 @@ def home_view(request):
     print(sentiment)
 
   print("avg: ", sentiment/count, " count: ", count)    
-  print("Cleaned Reviews",cleanedreviews)
   values={'Sentiment Rating from TMDB API':8.5,'Sentiment Rating from Web Scraper':7.5,'Actual Rating':6.2,'Proposed Rating':6.8}
   return render(request, 'MovieReviewApp/home.html', {'data': values})
 
