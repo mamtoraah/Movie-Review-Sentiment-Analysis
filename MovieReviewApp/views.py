@@ -3,7 +3,23 @@ import requests
 import tmdbsimple as tmdb
 from MovieReviewApp.key import apikey
 from bs4 import BeautifulSoup
+from textblob import TextBlob
+import re
+##from sklearn.feature_extraction.text import CountVectorizer
+'''
+Dil Dhadakne Do : 0.18812277897014912 25 
+Dangal : avg:  0.2529289888262045  count:  25
+Deadpool : avg:  0.1209913874006312  count:  25
+'''
 #import scrapy
+
+REPLACE_NO_SPACE = re.compile("(\.)|(\;)|(\:)|(\!)|(\')|(\?)|(\,)|(\")|(\()|(\))|(\[)|(\])")
+REPLACE_WITH_SPACE = re.compile("(<br\s*/><br\s*/>)|(\-)|(\/)")
+
+def preprocess_reviews(reviews):
+  reviews = [REPLACE_NO_SPACE.sub("", line.lower()) for line in reviews]
+  reviews = [REPLACE_WITH_SPACE.sub(" ", line) for line in reviews]
+  return reviews
 
 # def scrape():
 #   temp = scrapy.fetch("https://www.reddit.com/r/gameofthrones/")
@@ -12,7 +28,7 @@ from bs4 import BeautifulSoup
 # Create your views here.
 def home_view(request):
   key = apikey
-  movie_str = '&s=Dil Dhadakne Do'
+  movie_str = '&s=DeadPool'
   url = 'http://www.omdbapi.com/?apikey=' + apikey + movie_str
   response = requests.get(url)
   data = response.json()
@@ -26,6 +42,7 @@ def home_view(request):
 
   listofreviews=[]
   cleanedreviews=[]
+  preprocessedreviews = []
   for d in dtags:
     listofreviews.append(d.text.strip())
 
@@ -35,7 +52,20 @@ def home_view(request):
     cleanedstr=str[0:startindex]
     cleanedreviews.append(cleanedstr)
     #print("Start is",startindex)
-  print("Cleaned Reviews",cleanedreviews)
+  sentiment = 0.0
+  count = 0
+  for s in cleanedreviews:
+    preprocessedreviews.append(preprocess_reviews(s))
+    count += 1
+    blob_object = TextBlob(s)
+    sentiment += blob_object.sentiment.polarity
+    print(sentiment)
+
+  print("avg: ", sentiment/count, " count: ", count)
+    
+
+  
+    
   return render(request, 'MovieReviewApp/home.html', {'data': data})
 
 #def home_view(request):
