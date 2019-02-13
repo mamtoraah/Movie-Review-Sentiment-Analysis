@@ -2,11 +2,12 @@ from django.shortcuts import render
 import requests
 import tmdbsimple as tmdb
 from MovieReviewApp.key import apikey
-import scrapy
+from bs4 import BeautifulSoup
+#import scrapy
 
-def scrape():
-  temp = scrapy.fetch("https://www.reddit.com/r/gameofthrones/")
-  print(temp)
+# def scrape():
+#   temp = scrapy.fetch("https://www.reddit.com/r/gameofthrones/")
+#   print(temp)
 
 # Create your views here.
 def home_view(request):
@@ -17,6 +18,13 @@ def home_view(request):
   data = response.json()
   id = data['Search'][0]['imdbID']
   print("IMDBID:", id)
+  page = requests.get('https://www.imdb.com/title/'+id+'/?ref_=nv_sr_1')
+  soup = BeautifulSoup(page.text, 'html.parser')
+  print(soup.prettify())
+  ptags = soup.find_all('p')
+  print("P tags are",ptags)
+  for p in ptags:
+    print(p)
   return render(request, 'MovieReviewApp/home.html', {'data': data})
 
 #def home_view(request):
