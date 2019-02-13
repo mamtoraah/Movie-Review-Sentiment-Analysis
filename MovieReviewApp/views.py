@@ -12,19 +12,20 @@ from bs4 import BeautifulSoup
 # Create your views here.
 def home_view(request):
   key = apikey
-  movie_str = '&s=Dangal'
+  movie_str = '&s=Deadpool'
   url = 'http://www.omdbapi.com/?apikey=' + apikey + movie_str
   response = requests.get(url)
   data = response.json()
   id = data['Search'][0]['imdbID']
   print("IMDBID:", id)
-  page = requests.get('https://www.imdb.com/title/'+id+'/?ref_=nv_sr_1')
+  page = requests.get('https://www.imdb.com/title/'+id+'/reviews?ref_=tt_urv')
   soup = BeautifulSoup(page.text, 'html.parser')
-  print(soup.prettify())
-  ptags = soup.find_all('p')
-  print("P tags are",ptags)
-  for p in ptags:
-    print(p)
+  #print(soup.prettify())
+  dtags = soup.find_all("div", { "class" : "text show-more__control" })
+  #print("d tags are",dtags)
+  for d in dtags:
+    print(d)
+    break
   return render(request, 'MovieReviewApp/home.html', {'data': data})
 
 #def home_view(request):
