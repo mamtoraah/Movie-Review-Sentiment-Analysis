@@ -10,6 +10,8 @@ import re
 Dil Dhadakne Do : 0.18812277897014912 25 
 Dangal : avg:  0.2529289888262045  count:  25
 Deadpool : avg:  0.1209913874006312  count:  25
+The godfather:  0.256149240547238 count:  25
+Shawshank redemption: avg:  0.245180390140919  count:  25
 '''
 #import scrapy
 
@@ -27,8 +29,9 @@ def preprocess_reviews(reviews):
 
 # Create your views here.
 def home_view(request):
+  '''
   key = apikey
-  movie_str = '&s=DeadPool'
+  movie_str = '&s=The Shawshank Redemption'
   url = 'http://www.omdbapi.com/?apikey=' + apikey + movie_str
   response = requests.get(url)
   data = response.json()
@@ -61,9 +64,15 @@ def home_view(request):
     sentiment += blob_object.sentiment.polarity
     print(sentiment)
 
-  print("avg: ", sentiment/count, " count: ", count)    
+  print("avg: ", sentiment/count, " count: ", count) 
+  '''
+  
+  return render(request, 'MovieReviewApp/home.html')
+
+def graph_view(request):
   values={'Sentiment Rating from TMDB API':8.5,'Sentiment Rating from Web Scraper':7.5,'Actual Rating':6.2,'Proposed Rating':6.8}
-  return render(request, 'MovieReviewApp/home.html', {'data': values})
+  return render(request, 'MovieReviewApp/graph.html', {'data': values})
+
 
 #def home_view(request):
 #  tmdb.API_KEY ='784b4dff6c62ccbe711abb6b8163979f'

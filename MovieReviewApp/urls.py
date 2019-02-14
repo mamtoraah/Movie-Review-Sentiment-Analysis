@@ -5,4 +5,5 @@ from . import views
 app_name = 'MovieReviewApp'
 urlpatterns = [
   path('', views.home_view, name='home'),
+  path('graph/', views.graph_view, name='graph')
 ]
