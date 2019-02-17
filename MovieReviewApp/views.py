@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 import tmdbsimple as tmdb
 from MovieReviewApp.key import apikey
@@ -29,47 +29,50 @@ def preprocess_reviews(reviews):
 
 # Create your views here.
 def home_view(request):
-  '''
-  key = apikey
-  movie_str = '&s=The Shawshank Redemption'
-  url = 'http://www.omdbapi.com/?apikey=' + apikey + movie_str
-  response = requests.get(url)
-  data = response.json()
-  id = data['Search'][0]['imdbID']
-  print("IMDBID:", id)
-  page = requests.get('https://www.imdb.com/title/'+id+'/reviews?ref_=tt_urv')
-  soup = BeautifulSoup(page.text, 'html.parser')
-  #print(soup.prettify())
-  dtags = soup.find_all("div", { "class" : "text show-more__control" })
-  #print("d tags are",dtags)
+  data = ''
+  if request.method ==  'POST':
+    key = apikey
+    movie_str ='&s=' + request.POST.get('search_movie')#'&s=The Shawshank Redemption'
+    url = 'http://www.omdbapi.com/?apikey=' + apikey + movie_str
+    response = requests.get(url)
+    data = response.json()
+    id = data['Search'][0]['imdbID']
+    print("IMDBID:", id)
+    page = requests.get('https://www.imdb.com/title/'+id+'/reviews?ref_=tt_urv')
+    soup = BeautifulSoup(page.text, 'html.parser')
+    #print(soup.prettify())
+    dtags = soup.find_all("div", { "class" : "text show-more__control" })
+    #print("d tags are",dtags)
 
-  listofreviews=[]
-  cleanedreviews=[]
-  preprocessedreviews = []
-  for d in dtags:
-    listofreviews.append(d.text.strip())
+    listofreviews=[]
+    cleanedreviews=[]
+    preprocessedreviews = []
+    for d in dtags:
+      listofreviews.append(d.text.strip())
 
-  #print(listofreviews)
-  for str in listofreviews:
-    startindex=str.find('Favorite films:')
-    cleanedstr=str[0:startindex]
-    cleanedreviews.append(cleanedstr)
-    #print("Start is",startindex)
-  sentiment = 0.0
-  count = 0
-  for s in cleanedreviews:
-    preprocessedreviews.append(preprocess_reviews(s))
-    count += 1
-    blob_object = TextBlob(s)
-    sentiment += blob_object.sentiment.polarity
-    print(sentiment)
+    #print(listofreviews)
+    for str in listofreviews:
+      startindex=str.find('Favorite films:')
+      cleanedstr=str[0:startindex]
+      cleanedreviews.append(cleanedstr)
+      #print("Start is",startindex)
+    sentiment = 0.0
+    count = 0
+    for s in cleanedreviews:
+      preprocessedreviews.append(preprocess_reviews(s))
+      count += 1
+      blob_object = TextBlob(s)
+      sentiment += blob_object.sentiment.polarity
+      print(sentiment)
+      data = sentiment/count
+    print("avg: ", data, " count: ", count)
 
-  print("avg: ", sentiment/count, " count: ", count) 
-  '''
-  
-  return render(request, 'MovieReviewApp/home.html')
+  return render(request, 'MovieReviewApp/home.html', {'data':data})
+
+
 
 def graph_view(request):
+  print('hello this is from graph view')
   values={'Sentiment Rating from TMDB API':8.5,'Sentiment Rating from Web Scraper':7.5,'Actual Rating':6.2,'Proposed Rating':6.8}
   return render(request, 'MovieReviewApp/graph.html', {'data': values})
 

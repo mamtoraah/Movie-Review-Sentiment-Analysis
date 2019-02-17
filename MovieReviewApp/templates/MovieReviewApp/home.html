@@ -7,9 +7,55 @@
 <div>
   <form action="" method="POST">
     {%csrf_token%}
-    Enter text here: <input type="text" name='movie' id="search_movie">
+    Enter text here: <input type="text" name='search_movie' id="search_movie">
     <button type="submit">Search</button>
   </form>
 </div>
+{%if data == ''%}
+{%else%}
+<div>
+  <canvas id="myChart" width="35" height="35"></canvas>
+  <script>
+    var sentiment = parseFloat("{{data}}")
+    var ctx = document.getElementById("myChart");
 
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ["Sentiment Rating from TMDB API", "Sentiment Rating from Web Scraper", "Actual Rating", "Proposed Rating"],
+        datasets: [{
+          label: 'Sentiment Values VS Source for Reviews',
+          data: [8.5, sentiment, 6.2, 6.8, 2],
+
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)'
+
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)'
+
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+
+      }
+    });
+  </script>
+</div>
+{%endif%}
 {%endblock%}
