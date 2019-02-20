@@ -35,6 +35,16 @@ def home_view(request):
   if request.method ==  'POST':
     key = apikey
     movie_name = request.POST.get('search_movie')
+
+    filename = os.path.dirname(os.path.realpath(__file__)) + '/data.json'
+    with open(filename) as json_file:
+      temp = json.load(json_file)
+    
+    t = movie_name.replace(" ", "").lower()
+    for i in temp['movie']:
+      if (i['movie_name'] == t):
+        return render(request, 'MovieReviewApp/home.html', {'data':i['sentiment']})
+    
     movie_str ='&s=' + movie_name
     #http://www.omdbapi.com/?apikey=404e7523&s=The Shawshank Redemption
     url = 'http://www.omdbapi.com/?apikey=' + apikey + movie_str
@@ -70,16 +80,13 @@ def home_view(request):
       print(sentiment)
       data = sentiment/count
     print("avg: ", data, " count: ", count)
-    print(cleanedreviews)
+    
     #preprocessedreviews is a list of reviews on which the sentiment analysis is applied.
     #save the preprocessed reviews in a file named : data.json
     #structure : {moviename : {review : [reviews], sentiment : value}
     movie = movie_name.replace(" ", "").lower()
-    pydict = {movie:{'review':preprocessedreviews}, 'sentiment': data}
+    pydict = {'movie_name': movie, 'review':preprocessedreviews, 'sentiment': data}
     
-    filename = os.path.dirname(os.path.realpath(__file__)) + '/data.json'
-    with open(filename) as json_file:
-      temp = json.load(json_file)
     temp['movie'].append(pydict)
 
     with open(filename, 'w') as f:
