@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 import requests
 import tmdbsimple as tmdb
+import os
 from MovieReviewApp.key import apikey
 from bs4 import BeautifulSoup
 from textblob import TextBlob
 import re
+import json
 ##from sklearn.feature_extraction.text import CountVectorizer
 '''
 Dil Dhadakne Do : 0.18812277897014912 25 
@@ -21,7 +23,7 @@ REPLACE_WITH_SPACE = re.compile("(<br\s*/><br\s*/>)|(\-)|(\/)")
 def preprocess_reviews(reviews):
   reviews = [REPLACE_NO_SPACE.sub("", line.lower()) for line in reviews]
   reviews = [REPLACE_WITH_SPACE.sub(" ", line) for line in reviews]
-  return reviews
+  return ''.join(reviews)
 
 # def scrape():
 #   temp = scrapy.fetch("https://www.reddit.com/r/gameofthrones/")
@@ -32,7 +34,9 @@ def home_view(request):
   data = ''
   if request.method ==  'POST':
     key = apikey
-    movie_str ='&s=' + request.POST.get('search_movie')#'&s=The Shawshank Redemption'
+    movie_name = request.POST.get('search_movie')
+    movie_str ='&s=' + movie_name
+    #http://www.omdbapi.com/?apikey=404e7523&s=The Shawshank Redemption
     url = 'http://www.omdbapi.com/?apikey=' + apikey + movie_str
     response = requests.get(url)
     data = response.json()
@@ -66,7 +70,21 @@ def home_view(request):
       print(sentiment)
       data = sentiment/count
     print("avg: ", data, " count: ", count)
+    print(cleanedreviews)
+    #preprocessedreviews is a list of reviews on which the sentiment analysis is applied.
+    #save the preprocessed reviews in a file named : data.json
+    #structure : {moviename : {review : [reviews], sentiment : value}
+    movie = movie_name.replace(" ", "").lower()
+    pydict = {movie:{'review':preprocessedreviews}, 'sentiment': data}
+    
+    filename = os.path.dirname(os.path.realpath(__file__)) + '/data.json'
+    with open(filename) as json_file:
+      temp = json.load(json_file)
+    temp['movie'].append(pydict)
 
+    with open(filename, 'w') as f:
+      json.dump(temp, f)
+    
   return render(request, 'MovieReviewApp/home.html', {'data':data})
 
 
