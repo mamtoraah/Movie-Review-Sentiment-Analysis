@@ -1,6 +1,31 @@
 {%extends 'base.html'%}
 {%block head%}
 <title>Home</title>
+    <style>
+    input[type=text], select {
+        width: 85%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    button[type=submit] {
+  width: 50%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type=submit]:hover {
+  background-color: #45a049;
+}
+    </style>
 {%endblock%}
 
 {%block body%}
@@ -8,15 +33,16 @@
 <div align='center'>
   <form action="" method="POST">
     {%csrf_token%}
-    Enter text here: <input type="text" name='search_movie' id="search_movie">
-    <button type="submit">Search</button>
+      <label for="moviename" style="font-size:20px">Movie Name:</label><br>
+    <input type="text" name='search_movie' id="search_movie">
+      <a href="/review/graph"><button type="submit" onclick="location.href='http://google.com';">Search</button></a>
   </form>
 <br>
 </div>
 {%if data == ''%}
 {%else%}
-<div>
-  <canvas id="myChart" width="35" height="35"></canvas>
+<div style="width: 60%" align='center'>
+  <canvas id="myChart" width=60% height=50%></canvas>
   <script>
     var sentiment = parseFloat("{{data}}")
     var ctx = document.getElementById("myChart");
