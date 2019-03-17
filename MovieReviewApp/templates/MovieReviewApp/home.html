@@ -31,11 +31,11 @@ button[type=submit]:hover {
 {%block body%}
 <br>
 <div align='center'>
-  <form action="" method="POST">
+  <form action="{% url 'MovieReviewApp:graph' %}" method="POST">
     {%csrf_token%}
       <label for="moviename" style="font-size:20px">Movie Name:</label><br>
     <input type="text" name='search_movie' id="search_movie">
-      <a href="/review/graph"><button type="submit" onclick="location.href='http://google.com';">Search</button></a>
+      <button type="submit">Search</button>
   </form>
 <br>
 </div>

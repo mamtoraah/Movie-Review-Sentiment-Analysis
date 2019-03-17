@@ -114,6 +114,22 @@ def preprocess_reviews(reviews):
 
 
 def graph_view(request):
+  data = ''
+  if request.method ==  'POST':
+      key = apikey
+      movie_name = request.POST.get('search_movie')
+      print("Movie name is =",movie_name)
+      filename = os.path.dirname(os.path.realpath(__file__)) + '/data.json'
+      with open(filename) as json_file:
+        temp = json.load(json_file)
+
+      t = movie_name.replace(" ", "").lower()
+      for i in temp['movie']:
+        if (i['movie_name'] == t):
+          return render(request, 'MovieReviewApp/graph.html', {'data':i['sentiment']})
+
+      movie_str ='&s=' + movie_name
+      print("Movie name  is :",movie_str)
   print('hello this is from graph view')
   values={'Sentiment Rating from TMDB API':8.5,'Sentiment Rating from Web Scraper':7.5,'Actual Rating':6.2,'Proposed Rating':6.8}
   return render(request, 'MovieReviewApp/graph.html', {'data': values})
