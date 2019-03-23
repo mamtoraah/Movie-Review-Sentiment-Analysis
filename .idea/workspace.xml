@@ -4,8 +4,9 @@
     <list default="true" id="7b77d87f-198f-4fdf-b87e-298d0fecb15a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MovieReviewApp/data.json" beforeDir="false" afterPath="$PROJECT_DIR$/MovieReviewApp/data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieReviewApp/templates/MovieReviewApp/graph.html" beforeDir="false" afterPath="$PROJECT_DIR$/MovieReviewApp/templates/MovieReviewApp/graph.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MovieReviewApp/templates/MovieReviewApp/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/MovieReviewApp/templates/MovieReviewApp/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MovieReviewApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/MovieReviewApp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieReviewApp/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/MovieReviewApp/templates/base.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MovieReviewApp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="128" column="59" selection-start-line="128" selection-start-column="59" selection-end-line="128" selection-end-column="59" />
+            <state relative-caret-position="539">
+              <caret line="203" column="50" selection-start-line="203" selection-start-column="50" selection-end-line="203" selection-end-column="50" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
@@ -39,17 +40,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MovieReviewApp/templates/MovieReviewApp/graph.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="204">
+              <caret line="12" column="24" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MovieReviewApp/templates/MovieReviewApp/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="33" column="63" selection-start-line="33" selection-start-column="63" selection-end-line="33" selection-end-column="63" />
+            <state relative-caret-position="459">
+              <caret line="36" column="94" selection-start-line="36" selection-start-column="94" selection-end-line="36" selection-end-column="94" />
+              <folding>
+                <element signature="e#746#768#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -74,10 +78,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MovieReviewApp/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="47" column="82" lean-forward="true" selection-start-line="47" selection-start-column="82" selection-end-line="47" selection-end-column="82" />
+            <state relative-caret-position="391">
+              <caret line="53" column="54" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
               <folding>
-                <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MovieReviewProject/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="122" column="65" lean-forward="true" selection-start-line="122" selection-start-column="65" selection-end-line="122" selection-end-column="65" />
+            <state relative-caret-position="2074">
+              <caret line="122" column="65" selection-start-line="122" selection-start-column="65" selection-end-line="122" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -107,6 +111,7 @@
     <findStrings>
       <find>secretkeys</find>
       <find>data</find>
+      <find>1</find>
     </findStrings>
     <replaceStrings>
       <replace>privatekeys</replace>
@@ -122,8 +127,8 @@
         <option value="$PROJECT_DIR$/MovieReviewApp/urls.py" />
         <option value="$PROJECT_DIR$/MovieReviewApp/templates/MovieReviewApp/graph.html" />
         <option value="$PROJECT_DIR$/MovieReviewApp/templates/base.html" />
-        <option value="$PROJECT_DIR$/MovieReviewApp/templates/MovieReviewApp/home.html" />
         <option value="$PROJECT_DIR$/MovieReviewApp/views.py" />
+        <option value="$PROJECT_DIR$/MovieReviewApp/templates/MovieReviewApp/home.html" />
       </list>
     </option>
   </component>
@@ -177,13 +182,6 @@
               <item name="Moview-Review" type="462c0819:PsiDirectoryNode" />
               <item name="MovieReviewApp" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Moview-Review" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Moview-Review" type="462c0819:PsiDirectoryNode" />
-              <item name="MovieReviewApp" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="MovieReviewApp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Moview-Review" type="b2602c69:ProjectViewProjectNode" />
@@ -310,18 +308,20 @@
       <workItem from="1550116411013" duration="688000" />
       <workItem from="1551100516681" duration="3384000" />
       <workItem from="1552729786426" duration="6770000" />
-      <workItem from="1552796176770" duration="1985000" />
+      <workItem from="1552796176770" duration="2582000" />
+      <workItem from="1552825964187" duration="1185000" />
+      <workItem from="1553360271992" duration="4266000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28979000" />
+    <option name="totallyTimeSpent" value="35027000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17181209" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17583893" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -373,6 +373,9 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/MovieReviewApp/static/MovieReviewApp/style.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/MovieReviewApp/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -380,6 +383,13 @@
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MovieReviewProject/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2074">
+          <caret line="122" column="65" selection-start-line="122" selection-start-column="65" selection-end-line="122" selection-end-column="65" />
         </state>
       </provider>
     </entry>
@@ -393,46 +403,39 @@
     <entry file="file://$PROJECT_DIR$/MovieReviewApp/data.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/MovieReviewApp/static/MovieReviewApp/style.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MovieReviewProject/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="122" column="65" lean-forward="true" selection-start-line="122" selection-start-column="65" selection-end-line="122" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MovieReviewApp/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="47" column="82" lean-forward="true" selection-start-line="47" selection-start-column="82" selection-end-line="47" selection-end-column="82" />
+        <state relative-caret-position="391">
+          <caret line="53" column="54" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
           <folding>
-            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MovieReviewApp/templates/MovieReviewApp/graph.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MovieReviewApp/templates/MovieReviewApp/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="33" column="63" selection-start-line="33" selection-start-column="63" selection-end-line="33" selection-end-column="63" />
+        <state relative-caret-position="204">
+          <caret line="12" column="24" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MovieReviewApp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="128" column="59" selection-start-line="128" selection-start-column="59" selection-end-line="128" selection-end-column="59" />
+        <state relative-caret-position="539">
+          <caret line="203" column="50" selection-start-line="203" selection-start-column="50" selection-end-line="203" selection-end-column="50" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MovieReviewApp/templates/MovieReviewApp/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="36" column="94" selection-start-line="36" selection-start-column="94" selection-end-line="36" selection-end-column="94" />
+          <folding>
+            <element signature="e#746#768#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>

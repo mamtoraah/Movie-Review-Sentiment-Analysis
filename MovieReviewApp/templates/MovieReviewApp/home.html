@@ -13,7 +13,7 @@
     }
     button[type=submit] {
   width: 50%;
-  background-color: #4CAF50;
+  background-color: #ffcc00;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -23,7 +23,8 @@
 }
 
 button[type=submit]:hover {
-  background-color: #45a049;
+  background-color:#ff9933
+
 }
     </style>
 {%endblock%}
@@ -33,7 +34,7 @@ button[type=submit]:hover {
 <div align='center'>
   <form action="{% url 'MovieReviewApp:graph' %}" method="POST">
     {%csrf_token%}
-      <label for="moviename" style="font-size:20px">Movie Name:</label><br>
+      <font color="yellow"><label for="moviename" style="font-size:20px">Enter Movie Name Here</label></font> <br><br>
     <input type="text" name='search_movie' id="search_movie">
       <button type="submit">Search</button>
   </form>
@@ -41,49 +42,49 @@ button[type=submit]:hover {
 </div>
 {%if data == ''%}
 {%else%}
-<div style="width: 60%" align='center'>
-  <canvas id="myChart" width=60% height=50%></canvas>
-  <script>
-    var sentiment = parseFloat("{{data}}")
-    var ctx = document.getElementById("myChart");
-
-    var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ["Sentiment Rating from TMDB API", "Sentiment Rating from Web Scraper", "Actual Rating", "Proposed Rating"],
-        datasets: [{
-          label: 'Sentiment Values VS Source for Reviews',
-          data: [8.5, sentiment, 6.2, 6.8, 2],
-
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)'
-
-          ],
-          borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)'
-
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-
-      }
-    });
-  </script>
-</div>
+{#<div style="width: 60%" align='center'>#}
+{#  <canvas id="myChart" width=60% height=50%></canvas>#}
+{#  <script>#}
+{#    var sentiment = parseFloat("{{data}}")#}
+{#    var ctx = document.getElementById("myChart");#}
+{##}
+{#    var myChart = new Chart(ctx, {#}
+{#      type: 'bar',#}
+{#      data: {#}
+{#        labels: ["Sentiment Rating from TMDB API", "Sentiment Rating from Web Scraper", "Actual Rating", "Proposed Rating"],#}
+{#        datasets: [{#}
+{#          label: 'Sentiment Values VS Source for Reviews',#}
+{#          data: [8.5, sentiment, 6.2, 6.8, 2],#}
+{##}
+{#          backgroundColor: [#}
+{#            'rgba(255, 99, 132, 0.2)',#}
+{#            'rgba(54, 162, 235, 0.2)',#}
+{#            'rgba(255, 206, 86, 0.2)',#}
+{#            'rgba(75, 192, 192, 0.2)'#}
+{##}
+{#          ],#}
+{#          borderColor: [#}
+{#            'rgba(255,99,132,1)',#}
+{#            'rgba(54, 162, 235, 1)',#}
+{#            'rgba(255, 206, 86, 1)',#}
+{#            'rgba(75, 192, 192, 1)'#}
+{##}
+{#          ],#}
+{#          borderWidth: 1#}
+{#        }]#}
+{#      },#}
+{#      options: {#}
+{#        scales: {#}
+{#          yAxes: [{#}
+{#            ticks: {#}
+{#              beginAtZero: true#}
+{#            }#}
+{#          }]#}
+{#        }#}
+{##}
+{#      }#}
+{#    });#}
+{#  </script>#}
+{#</div>#}
 {%endif%}
 {%endblock%}
