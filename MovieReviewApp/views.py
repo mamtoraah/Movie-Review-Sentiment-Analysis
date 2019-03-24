@@ -22,6 +22,7 @@ REPLACE_NO_SPACE = re.compile(
 REPLACE_WITH_SPACE = re.compile("(<br\s*/><br\s*/>)|(\-)|(\/)|(\\r)|(\\n)")
 
 
+
 def preprocess_reviews(reviews):
   reviews = [REPLACE_NO_SPACE.sub("", line.lower()) for line in reviews]
   reviews = [REPLACE_WITH_SPACE.sub(" ", line) for line in reviews]
@@ -60,13 +61,16 @@ def graph_view(request):
             'Actual Rating': 6.2,
             'Proposed Rating': 6.8
         }
-        return render(request, 'MovieReviewApp/home.html', {'data': values})
+        return render(request, 'MovieReviewApp/graph.html', {'data': values})
     movie_str = '&s=' + movie_name
     # http://www.omdbapi.com/?apikey=404e7523&s=The Shawshank Redemption
     url = 'http://www.omdbapi.com/?apikey=' + apikey + movie_str
     response = requests.get(url)
     data = response.json()
     id = data['Search'][0]['imdbID']
+
+    rating = data['Search'][0]
+
     print("IMDBID:", id)
     page = requests.get('https://www.imdb.com/title/' +
                         id+'/reviews?ref_=tt_urv')
@@ -87,14 +91,34 @@ def graph_view(request):
       cleanedstr = str[0:startindex]
       cleanedreviews.append(cleanedstr)
       #print("Start is",startindex)
+    
+    import pickle
+    from sklearn.externals import joblib
+    model = os.path.dirname(os.path.realpath(__file__)) + '/model_random_forest.pkl'
+    loaded_model = joblib.load(model)
+    ngram_vectorizer = pickle.load(open(os.path.dirname(os.path.realpath(__file__)) + '/ngram_3.pkl', 'rb'))
+
     sentiment = 0.0
+    new_model_sentiment = 0.0
     count = 0
     for s in cleanedreviews:
       preprocessedreviews.append(preprocess_reviews(s))
       count += 1
       blob_object = TextBlob(s)
       sentiment += blob_object.sentiment.polarity
-      print(sentiment)
+      transformed = ngram_vectorizer.transform([s])
+      klass = loaded_model.predict(transformed)
+      ttemp = loaded_model.predict_proba(transformed)
+      print(klass, ttemp)
+      if klass == 0:
+        curr_sent = loaded_model.predict_proba(transformed)[0, 0]
+        new_model_sentiment += -( curr_sent + 0.48 )/ (0.52 - 0.48) #minmax norm
+      else:
+        curr_sent = loaded_model.predict_proba(transformed)[0, 1]
+        new_model_sentiment += ( curr_sent - 0.48 )/ (0.52 - 0.48) #minmax norm
+      #curr_sent = 1
+      new_model_sentiment += ( curr_sent - 0.48 )/ (0.52 - 0.48) #minmax norm
+      print(sentiment," new sent: " , new_model_sentiment)
       data = sentiment/count
     print("avg: ", data, " count: ", count)
 
@@ -126,7 +150,8 @@ def graph_view(request):
         'review': preprocessedreviews,
         'sentiment': data,
         'tmdb_review' : tmdb_preprocessed,
-        'tmdb_rating': tmdb_sentiment
+        'tmdb_rating': tmdb_sentiment,
+        'trained_model_rating': new_model_sentiment
     }
 
     temp['movie'].append(pydict)
