@@ -46,7 +46,8 @@ def list_view(request):
       if (i['movie_name'] == movie_name_query):
         mylist = i['review']
   for i in mylist:
-    k = i[0:200]
+    k=i
+    #k = i[0:200]
     newlist.append(k)
   return render(request, 'MovieReviewApp/list.html', {'mylist': newlist})
 

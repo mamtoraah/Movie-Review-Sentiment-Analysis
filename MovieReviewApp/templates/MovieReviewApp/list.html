@@ -1,21 +1,41 @@
 {%extends 'base.html'%}
 {%block head%}
 <title>Graph</title>
+<style>
+  p{
+    color: white;
+    font-size:25px;
+  }
+  #review{
+    border:1px solid yellow;
+  }
+  h1{
+    color: yellow
+  }
+</style>
 {%endblock%}
 
 {%block body%}
-<div class="container">
-  {% for i in mylist  %}
-  {% if forloop.counter0|divisibleby:3 %} <div class="row text-center"> {%  endif %}
-    <div class="col-md-4" style="cursor: pointer">
-      <div class="card" >
-        <div class="card-content">
-          <p class="card-text">{{ i }} </p>
-        </div><!-- card content -->
-      </div><!-- card -->
-    </div><!-- col-md-4 -->
-    {%  if forloop.counter|divisibleby:3 or forloop.last %}</div><!-- row closing -->
-  <hr>{%  endif %}
-  {%  endfor %}
+<div class="container" style="text-align:center;">
+  <h1>
+    REVIEWS
+  </h1>
 </div>
+<!-- <div class="container"> -->
+  {% for i in mylist  %}
+  <div class="card text-center" id="review">
+      <div class="card-header"  style="background-color:yellow; ">
+        <br><br>
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{i}}</p>
+        </div>
+      <div class="card-footer text-muted" style="background-color:yellow;">
+          <br><br>
+      </div>
+    </div>
+  <br><br>
+  {%  endfor %}
+<!-- </div> -->
 {%endblock%}
+
