@@ -22,7 +22,6 @@ REPLACE_NO_SPACE = re.compile(
 REPLACE_WITH_SPACE = re.compile("(<br\s*/><br\s*/>)|(\-)|(\/)|(\\r)|(\\n)")
 
 
-
 def preprocess_reviews(reviews):
   reviews = [REPLACE_NO_SPACE.sub("", line.lower()) for line in reviews]
   reviews = [REPLACE_WITH_SPACE.sub(" ", line) for line in reviews]
@@ -35,6 +34,21 @@ def scrape():
 
 # Create your views here.
 
+def list_view(request):
+  movie_name_query = "deadpool"
+  filename = os.path.dirname(os.path.realpath(__file__)) + '/data.json'
+  with open(filename) as json_file:
+    temp = json.load(json_file)
+
+  mylist = []
+  newlist = []
+  for i in temp['movie']:
+      if (i['movie_name'] == movie_name_query):
+        mylist = i['review']
+  for i in mylist:
+    k = i[0:200]
+    newlist.append(k)
+  return render(request, 'MovieReviewApp/list.html', {'mylist': newlist})
 
 def graph_view(request):
   values = {

@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+{%block head%}
+<title>Graph</title>
+{%endblock%}
+
+{%block body%}
+<div class="container">
+  {% for i in mylist  %}
+  {% if forloop.counter0|divisibleby:3 %} <div class="row text-center"> {%  endif %}
+    <div class="col-md-4" style="cursor: pointer">
+      <div class="card" >
+        <div class="card-content">
+          <p class="card-text">{{ i }} </p>
+        </div><!-- card content -->
+      </div><!-- card -->
+    </div><!-- col-md-4 -->
+    {%  if forloop.counter|divisibleby:3 or forloop.last %}</div><!-- row closing -->
+  <hr>{%  endif %}
+  {%  endfor %}
+</div>
+{%endblock%}
