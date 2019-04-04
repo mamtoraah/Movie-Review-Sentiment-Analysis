@@ -35,6 +35,8 @@ def scrape():
 # Create your views here.
 
 def list_view(request):
+  if 'movie_name' in request.session:
+    print("The movie name in list is ",request.session['movie_name'])
   movie_name_query = "deadpool"
   filename = os.path.dirname(os.path.realpath(__file__)) + '/data.json'
   with open(filename) as json_file:
@@ -62,7 +64,8 @@ def graph_view(request):
   if request.method == 'POST':
     key = apikey
     movie_name = request.POST.get('search_movie')
-
+    print("The movie name is graph is",movie_name)
+    request.session['movie_name']=movie_name
     filename = os.path.dirname(os.path.realpath(__file__)) + '/data.json'
     with open(filename) as json_file:
       temp = json.load(json_file)
