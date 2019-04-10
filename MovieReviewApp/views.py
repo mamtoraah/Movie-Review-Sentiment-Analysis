@@ -54,6 +54,7 @@ def list_view(request):
   return render(request, 'MovieReviewApp/list.html', {'mylist': newlist})
 
 def graph_view(request):
+
   values = {
               'Sentiment Rating from TMDB API': 10,
               'Sentiment Rating from Web Scraper': 8,
@@ -73,11 +74,32 @@ def graph_view(request):
     t = movie_name.replace(" ", "").lower()
     for i in temp['movie']:
       if (i['movie_name'] == t):
+
+
+        '''
+        Calculation for normalization
+        '''
+
+        tmdb_rating = float(i['tmdb_rating'])
+        print("tmdb rating type", type(tmdb_rating))
+        tmdb_rating = ((tmdb_rating + 0.25)/(0.5)) * 10
+
+        sentiment = float(i['sentiment'])
+        sentiment = ((sentiment + 0.12)/(0.24)) * 10
+
+        imt = float(i['trained_model_rating'])
+        imt = ((imt + 1)/2) * 10 
+    
+        IMDB = float(i['imdb'])
+        #proposed = 1
+        proposed = (IMDB * 3 + imt + sentiment + tmdb_rating) / 6
+
         values = {
-            'Sentiment Rating from TMDB API': i['tmdb_rating'],
-            'Sentiment Rating from Web Scraper': i['sentiment'],
-            'Actual Rating': 6.2,
-            'Proposed Rating': 6.8
+            'Sentiment Rating from TMDB API': tmdb_rating,
+            'Sentiment Rating from Web Scraper': sentiment,
+            'Actual Rating': IMDB,
+            'pkl model rating': imt,
+            'Proposed Rating': proposed
         }
         return render(request, 'MovieReviewApp/graph.html', {'data': values})
     movie_str = '&s=' + movie_name
@@ -86,6 +108,25 @@ def graph_view(request):
     response = requests.get(url)
     data = response.json()
     id = data['Search'][0]['imdbID']
+
+
+
+
+    sourcelist = []
+    ratelist = []
+    urlrating = 'http://www.omdbapi.com/?apikey=' + \
+        apikey+'&i='+id+'&plot=short&r=json&tomatoes=true'
+    responserating = requests.get(urlrating)
+    datarating = responserating.json()
+    print("datarating is", datarating)
+    ratingarray = datarating['Ratings']
+    for x in ratingarray:
+      source = x['Source']
+      rating = x['Value']
+      sourcelist.append(source)
+      ratelist.append(rating)
+    print("Source list is ", sourcelist)
+    print("Rating is ", ratelist)
 
     rating = data['Search'][0]
 
@@ -170,29 +211,14 @@ def graph_view(request):
         'sentiment': data,
         'tmdb_review' : tmdb_preprocessed,
         'tmdb_rating': tmdb_sentiment,
-        'trained_model_rating': new_model_sentiment
+        'trained_model_rating': new_model_sentiment,
+        'imdb' : float(ratelist[0])
     }
 
     temp['movie'].append(pydict)
 
     with open(filename, 'w') as f:
       json.dump(temp, f)
-
-    # sourcelist = []
-    # ratelist = []
-    # urlrating = 'http://www.omdbapi.com/?apikey=' + \
-    #     apikey+'&i='+id+'&plot=short&r=json&tomatoes=true'
-    # responserating = requests.get(urlrating)
-    # datarating = responserating.json()
-    # print("datarating is", datarating)
-    # ratingarray = datarating['Ratings']
-    # for x in ratingarray:
-    #   source = x['Source']
-    #   rating = x['Value']
-    #   sourcelist.append(source)
-    #   ratelist.append(rating)
-    # print("Source list is ", sourcelist)
-    # print("Rating is ", ratelist)
 
     #values to display
     values = {

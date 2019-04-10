@@ -2,14 +2,16 @@
 {%block head%}
 <title>Graph</title>
 <style>
-  p{
+  p {
     color: white;
-    font-size:25px;
+    font-size: 25px;
   }
-  #review{
-    border:1px solid yellow;
+
+  #review {
+    border: 1px solid yellow;
   }
-  h1{
+
+  h1 {
     color: yellow
   }
 </style>
@@ -22,20 +24,19 @@
   </h1>
 </div>
 <!-- <div class="container"> -->
-  {% for i in mylist  %}
-  <div class="card text-center" id="review">
-      <div class="card-header"  style="background-color:yellow; ">
-        <br><br>
-      </div>
-      <div class="card-body">
-        <p class="card-text">{{i}}</p>
-        </div>
-      <div class="card-footer text-muted" style="background-color:yellow;">
-          <br><br>
-      </div>
-    </div>
-  <br><br>
-  {%  endfor %}
+{% for i in mylist  %}
+<div class="card text-center" id="review">
+  <div class="card-header" style="background-color:yellow; ">
+    <br><br>
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{i}}</p>
+  </div>
+  <div class="card-footer text-muted" style="background-color:yellow;">
+    <br><br>
+  </div>
+</div>
+<br><br>
+{%  endfor %}
 <!-- </div> -->
 {%endblock%}
-
