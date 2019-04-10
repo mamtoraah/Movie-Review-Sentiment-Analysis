@@ -130,14 +130,15 @@ def graph_view(request):
       print(klass, ttemp)
       if klass == 0:
         curr_sent = loaded_model.predict_proba(transformed)[0, 0]
-        new_model_sentiment += -( curr_sent + 0.48 )/ (0.52 - 0.48) #minmax norm
+        new_model_sentiment += -( curr_sent - 0.48 )/ (0.52 - 0.48) #minmax norm
       else:
         curr_sent = loaded_model.predict_proba(transformed)[0, 1]
         new_model_sentiment += ( curr_sent - 0.48 )/ (0.52 - 0.48) #minmax norm
       #curr_sent = 1
-      new_model_sentiment += ( curr_sent - 0.48 )/ (0.52 - 0.48) #minmax norm
+      #new_model_sentiment += ( curr_sent - 0.48 )/ (0.52 - 0.48) #minmax norm
       print(sentiment," new sent: " , new_model_sentiment)
       data = sentiment/count
+      new_model_sentiment = new_model_sentiment/count
     print("avg: ", data, " count: ", count)
 
     # preprocessedreviews is a list of reviews on which the sentiment analysis 
