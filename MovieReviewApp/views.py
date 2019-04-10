@@ -95,11 +95,11 @@ def graph_view(request):
         proposed = (IMDB * 3 + imt + sentiment + tmdb_rating) / 6
 
         values = {
-            'Sentiment Rating from TMDB API': tmdb_rating,
-            'Sentiment Rating from Web Scraper': sentiment,
-            'Actual Rating': IMDB,
-            'pkl model rating': imt,
-            'Proposed Rating': proposed
+            'tmdb_rating': tmdb_rating, #Sentiment Rating from TMDB API
+            'sentiment': sentiment, #Sentiment Rating from Web Scraper
+            'IMDB': IMDB, #Actual Rating
+            'imt': imt, #pkl model rating
+            'proposed': proposed #Proposed Rating
         }
         return render(request, 'MovieReviewApp/graph.html', {'data': values})
     movie_str = '&s=' + movie_name

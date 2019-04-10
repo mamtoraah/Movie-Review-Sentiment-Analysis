@@ -39,15 +39,22 @@
   <canvas id="myChart" width="100%" height="40%"></canvas>
   <script>
     var ctx = document.getElementById('myChart').getContext('2d');
+    
+    var tmdb_rating = parseFloat("{{data.tmdb_rating}}")
+    var sentiment = parseFloat("{{data.sentiment}}")
+    var IMDB = parseFloat("{{data.IMDB}}")
+    var imt = parseFloat("{{data.imt}}")
+    var proposed = parseFloat("{{data.proposed}}")
 
+    // console.log(sentiment)
     var myChart = new Chart(ctx, {
       type: 'bar',
 
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['based on TMDB data', 'based on web scraped data', 'actual IMDB rating', 'Using the trained model pkl', 'proposed rating'],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'points',
+          data: [tmdb_rating, sentiment, IMDB, imt, proposed],
           backgroundColor: [
             'rgba(255, 0 , 0, 1)',
             'rgba(255, 127, 0, 1)',
