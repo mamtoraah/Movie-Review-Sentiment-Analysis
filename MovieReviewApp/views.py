@@ -37,7 +37,8 @@ def scrape():
 def list_view(request):
   if 'movie_name' in request.session:
     print("The movie name in list is ",request.session['movie_name'])
-  movie_name_query = "deadpool"
+  movie_name_query = request.session['movie_name']
+  movie_name_query = movie_name_query.replace(" ", "").lower()
   filename = os.path.dirname(os.path.realpath(__file__)) + '/data.json'
   with open(filename) as json_file:
     temp = json.load(json_file)
@@ -212,7 +213,7 @@ def graph_view(request):
         'tmdb_review' : tmdb_preprocessed,
         'tmdb_rating': tmdb_sentiment,
         'trained_model_rating': new_model_sentiment,
-        'imdb' : float(ratelist[0])
+        'imdb' : float(ratelist[0][0:2])
     }
 
     temp['movie'].append(pydict)
